@@ -1,11 +1,18 @@
 {
   "imports": {
+    "@twind": "./utils/twind.ts",
     "$fresh/": "https://deno.land/x/fresh@1.0.1/",
+    "preact-render-to-string": "https://esm.sh/preact-render-to-string@5.2.0?deps=preact@10.8.2",
     "preact": "https://esm.sh/preact@10.8.2",
     "preact/": "https://esm.sh/preact@10.8.2/",
-    "preact-render-to-string": "https://esm.sh/preact-render-to-string@5.2.0?deps=preact@10.8.2",
-    "@twind": "./utils/twind.ts",
     "twind": "https://esm.sh/twind@0.16.17",
-    "twind/": "https://esm.sh/twind@0.16.17/"
+    "twind/": "https://esm.sh/twind@0.16.17/",
+    "@kritb-blog/notion-db-connector": "https://esm.sh/v94/*@kritb-blog/notion-db-connector@1.5.0?bundle"
+  },
+  "scopes": {
+    "@kritb-blog/notion-db-connector": {
+      "@notionhq/client": "https://esm.sh/v94/@notionhq/client@1.0.4",
+      "memory-cache": "https://esm.sh/v94/memory-cache@0.2.0"
+    }
   }
 }
