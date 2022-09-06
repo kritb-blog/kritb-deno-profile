@@ -9,6 +9,7 @@ import manifest from "./fresh.gen.ts";
 
 import { config, setup } from "@twind";
 import { virtualSheet } from "twind/sheets";
+import "https://deno.land/x/dotenv/load.ts";
 
 const sheet = virtualSheet();
 sheet.reset();
