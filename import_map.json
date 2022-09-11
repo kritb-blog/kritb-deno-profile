@@ -7,12 +7,6 @@
     "preact/": "https://esm.sh/preact@10.8.2/",
     "twind": "https://esm.sh/twind@0.16.17",
     "twind/": "https://esm.sh/twind@0.16.17/",
-    "@kritb-blog/notion-db-connector": "https://esm.sh/v94/*@kritb-blog/notion-db-connector@1.5.0?bundle"
-  },
-  "scopes": {
-    "@kritb-blog/notion-db-connector": {
-      "@notionhq/client": "https://esm.sh/v94/@notionhq/client@1.0.4",
-      "memory-cache": "https://esm.sh/v94/memory-cache@0.2.0"
-    }
+    "@notionhq/client": "https://esm.sh/v94/@notionhq/client@1.0.4"
   }
 }
