@@ -13,6 +13,6 @@ export const handler = async (
       select: { equals: "Completed" },
     },
   });
-
+  console.log(result)
   return new Response(JSON.stringify(result.results));
 };

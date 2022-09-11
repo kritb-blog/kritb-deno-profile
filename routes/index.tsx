@@ -15,8 +15,7 @@ export const handler: Handlers<Data | null> = {
     if (resp.status === 404) {
       return ctx.render(null);
     }
-    const data: any = await resp.json();
-    console.log(data)
+    const data: Data = await resp.json();
     return ctx.render(data);
   },
 };
