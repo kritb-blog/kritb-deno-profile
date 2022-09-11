@@ -11,12 +11,12 @@ export const handler: Handlers<Data | null> = {
   async GET(req, ctx) {
     const { host, protocol } = new URL(req.url);
     const postsUrl = new URL("/api/posts", `${protocol}${host}`);
-    console.log(postsUrl);
     const resp = await fetch(postsUrl.href);
     if (resp.status === 404) {
       return ctx.render(null);
     }
-    const data: Data = await resp.json();
+    const data: any = await resp.json();
+    console.log(data)
     return ctx.render(data);
   },
 };
