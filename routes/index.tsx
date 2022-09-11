@@ -2,12 +2,12 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { h } from "preact";
 import { tw } from "@twind";
-import { NotionDatabase, NotionPageProperties } from "../types/Database.d.ts";
+import { NotionPageProperties, NotionResponse } from "../types/Database.d.ts";
 import InlinePost from "@islands/InlinePost.tsx";
 
-type Data = NotionDatabase<NotionPageProperties>[];
+type Response = NotionResponse<NotionPageProperties>;
 
-export const handler: Handlers<Data | null> = {
+export const handler: Handlers<Response | null> = {
   async GET(req, ctx) {
     const { host, protocol } = new URL(req.url);
     const postsUrl = new URL("/api/posts", `${protocol}${host}`);
@@ -15,17 +15,17 @@ export const handler: Handlers<Data | null> = {
     if (resp.status === 404) {
       return ctx.render(null);
     }
-    const data: Data = await resp.json();
+    const data: Response = await resp.json();
     return ctx.render(data);
   },
 };
 
-export default function Home({ data }: PageProps<Data | null>) {
+export default function Home({ data }: PageProps<Response | null>) {
   if (!data) {
     return <h1>No post</h1>;
   }
   const renderInlinePosts = () => {
-    return data.map((page) => (
+    return data.results.map((page) => (
       <InlinePost
         title={page.properties.Name.title[0].plain_text}
         createdTime={page.created_time}

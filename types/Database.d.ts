@@ -40,3 +40,8 @@ export interface NotionDatabase<T> {
   last_edited_time: string;
   properties: T;
 }
+
+export interface NotionResponse<T> {
+  object: "list";
+  results: NotionDatabase<T>[];
+}
