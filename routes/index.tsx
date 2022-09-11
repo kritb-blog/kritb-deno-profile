@@ -8,8 +8,9 @@ import InlinePost from "@islands/InlinePost.tsx";
 type Data = NotionDatabase<NotionPageProperties>[];
 
 export const handler: Handlers<Data | null> = {
-  async GET(_, ctx) {
-    const resp = await fetch(Deno.env.get("POST_API_URL") || "");
+  async GET(req, ctx) {
+    const { host, protocol } = new URL(req.url);
+    const resp = await fetch(new URL("/api/posts", `${protocol}${host}`));
     if (resp.status === 404) {
       return ctx.render(null);
     }
