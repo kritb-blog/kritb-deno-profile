@@ -10,8 +10,9 @@ type Data = NotionDatabase<NotionPageProperties>[];
 export const handler: Handlers<Data | null> = {
   async GET(req, ctx) {
     const { host, protocol } = new URL(req.url);
-    console.log(`${protocol}//${host}`);
-    const resp = await fetch(new URL("/api/posts", `${protocol}${host}`));
+    const postsUrl = new URL("/api/posts", `${protocol}${host}`);
+    console.log(postsUrl);
+    const resp = await fetch(postsUrl.href);
     if (resp.status === 404) {
       return ctx.render(null);
     }
