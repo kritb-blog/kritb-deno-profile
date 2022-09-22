@@ -2,29 +2,23 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { h } from "preact";
 import { tw } from "@twind";
+import { Client } from "@notionhq/client";
+import { QueryDatabaseResponse } from "@notionhq/client/models";
 import { NotionPageProperties, NotionResponse } from "../types/Database.d.ts";
 import InlinePost from "@islands/InlinePost.tsx";
 
 type Response = NotionResponse<NotionPageProperties>;
 
-export const handler: Handlers<Response | null> = {
+export const handler: Handlers<QueryDatabaseResponse | null> = {
   async GET(req, ctx) {
-    const { host, protocol } = new URL(req.url);
-    const postsUrl = new URL("/api/posts", `${protocol}${host}`);
-
-    const request = new Request(postsUrl.href, {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
+    const client = new Client({ auth: Deno.env.get("NOTION_TOKEN") || "" });
+    const data = await client.databases.query({
+      database_id: Deno.env.get("NOTION_DATABASE_ID") || "",
+      filter: {
+        property: "Status",
+        select: { equals: "Completed" },
       },
     });
-
-    const resp = await fetch(request);
-    if (resp.status === 404) {
-      return ctx.render(null);
-    }
-    console.log(resp);
-    const data: Response = await resp.json();
     return ctx.render(data);
   },
 };
