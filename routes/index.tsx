@@ -11,7 +11,15 @@ export const handler: Handlers<Response | null> = {
   async GET(req, ctx) {
     const { host, protocol } = new URL(req.url);
     const postsUrl = new URL("/api/posts", `${protocol}${host}`);
-    const resp = await fetch(postsUrl.href);
+
+    const request = new Request(postsUrl.href, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+
+    const resp = await fetch(request);
     if (resp.status === 404) {
       return ctx.render(null);
     }
